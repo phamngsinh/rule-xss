@@ -8,3 +8,4 @@ how to use
               $impact += (int) $rule_info['impact'];
             }
           }
+          http://snipplr.com/view/1848/php--sacar-xss/
