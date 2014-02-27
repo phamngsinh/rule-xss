@@ -1,0 +1,26 @@
+ $rules['(?:\sexec\s+xp_cmdshell)|(?:"\s*!\s*["\w])|(?:from\W+information_schema\W)|(?:(?:(?:current_)?user|database|schema|connection_id)\s*\([^\)]*)|(?:";?\s*(?:select|union|having)\s*[^\s])|(?:\wiif\s*\()|(?:exec\s+master\.)|(?:union select @)|(?:union[\w(\s]*select)|(?:select.*\w?user\()|(?:into[\s+]+(?:dump|out)file\s*")'] = array(
+      'type' => array('rce', 'sqli'),
+      'description' => t('Code execution and information gathering attempt.'),
+      'impact' => 4,
+    );
+    $rules['(?:((.)?\/)+(apache((.)?\/)+logs|etc((.)?\/)+httpd((.)?\/)+logs|var((.)?\/)+www((.)?\/)+logs|usr((.)?\/)+local((.)?\/)+apache((.)?\/)+logs|var((.)?\/)+log((.)?\/)+apache|var((.)?\/)+log((.)?\/)+apache2|var((.)?\/)+log))((.)?\/)+(error|access)(.|_)log'] = array(
+      'type' => array('rce'),
+      'description' => t('Code execution by logfile poisoning (local file inclusion).'),
+      'impact' => 4,
+    );
+    $rules['(?:(?:\/|\\\\)?\.+(\/|\\\\)(?:\.+)?)|(?:\w+\.exe\??\s)|(?:;\s*\w+\s*\/[\w*-]+\/)|(?:\d\.\dx\|)|(?:%(?:c0\.|af\.|5c\.))|(?:\/(?:%2e){2})'] = array(
+      'type' => array('rce'),
+      'description' => t('Basic directory and path traversal.'),
+      'impact' => 2,
+    );
+    $rules['(?:%c0%ae\/)|(?:(?:\/|\\\\)(home|conf|usr|etc|proc|opt|s?bin|local|dev|tmp|kern|[br]oot|sys|system|windows|winnt|program|%[a-z_-]{3,}%)(?:\/|\\\\))|(?:(?:\/|\\\\)inetpub|localstart\.asp|boot\.ini)'] = array(
+      'type' => array('rce'),
+      'description' => t('Specific directory and path traversal.'),
+      'impact' => 3,
+    );
+    $rules['(?:\\x[01fe][\db-ce-f])|(?:%[01fe][\db-ce-f])|(?:&#[01fe][\db-ce-f])|(?:\\[01fe][\db-ce-f])|(?:&#x[01fe][\db-ce-f])'] = array(
+      'type' => array('rce'),
+      'description' => t('Found nullbytes or other dangerous characters.'),
+      'impact' => 3,
+    );
+  

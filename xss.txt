@@ -1,0 +1,35 @@
+ $rules['(?:"[^"]*[^-]?>)|(?:[^\w\s]\s*\/>)|(?:>")'] = array(
+      'type' => array('xss', 'csrf'),
+      'description' => t('HTML breaking injections including whitespace attacks.'),
+      'impact' => 2,
+    );
+    $rules['([^*\s\w,.\/?+-]\s*)?(?<![a-mo-z]\s)(?<![a-z\/_@])(\s*return\s*)?(?:alert|inputbox|showmod(?:al|eless)dialog|showhelp|infinity|isnan|isnull|iterator|msgbox|executeglobal|expression|prompt|write(?:ln)?|confirm|dialog|urn|(?:un)?eval|exec|execscript|tostring|status|execute|window|unescape|navigate|jquery|getscript|extend|prototype)(?(1)[^\w%"]|(?:\s*[^@\s\w%",.:\/+\-]))'] = array(
+      'type' => array('xss', 'csrf'),
+      'description' => t('Possible include or typical script method.'),
+      'impact' => 3,
+    );
+    $rules['(?:=\s*[$\w]\s*[\(\[])|(?:\(\s*(?:this|top|window|self|parent|_?content)\s*\))|(?:src\s*=s*(?:\w+:|\/\/))|(?:\w+\[("\w+"|\w+\|\|))|(?:[\d\W]\|\|[\d\W]|\W=\w+,)|(?:\/\s*\+\s*[a-z"])|(?:=\s*\$[^([]*\()|(?:=\s*\(\s*")'] = array(
+      'type' => array('xss', 'csrf'),
+      'description' => t('Obfuscated JavaScript script injection.'),
+      'impact' => 5,
+    );
+    $rules['(?:\<[\/]?(?:[i]?frame|applet|isindex|marquee|keygen|script|audio|video|input|button|textarea|style|base|body|meta|link|object|embed|param|plaintext|xm\w+|image|im(?:g|port)))'] = array(
+      'type' => array('xss', 'csrf'),
+      'description' => t('Possibly malicious html element including some attributes.'),
+      'impact' => 5,
+    );
+    $rules['(?:\<\w*:?\s(?:[^\>]*)t(?!rong))|(?:\<scri)|(<\w+:\w+)'] = array(
+      'type' => array('xss'),
+      'description' => t('Obfuscated script tags or XML wrapped HTML.'),
+      'impact' => 3,
+    );
+    $rules['(?:,\s*(?:alert|showmodaldialog|eval)\s*,)|(?::\s*eval\s*[^\s])|([^:\s\w,.\/?+-]\s*)?(?<![a-z\/_@])(\s*return\s*)?(?:(?:document\s*\.)?(?:.+\/)?(?:alert|eval|msgbox|showmod(?:al|eless)dialog|showhelp|prompt|confirm|dialog|open))\s*(?:[^.a-z\s\-]|(?:\s*[^\s\w,.@\/+-]))|(?:java[\s\/]*\.[\s\/]*lang)|(?:\w\s*=\s*new\s+\w+)|(?:&\s*\w+\s*\)[^,])|(?:\+[\W\d]*new\s+\w+[\W\d]*\+)|(?:document\.\w)'] = array(
+      'type' => array('xss', 'rce'),
+      'description' => t('Very basic XSS probing.'),
+      'impact' => 2,
+    );
+    $rules['(?:(?:vbs|vbscript|data):.*[,+])|(?:\w+\s*=\W*(?!https?)\w+:)|(jar:\w+:)|(=\s*"?\s*vbs(?:ript)?:)|(language\s*=\s?"?\s*vbs(?:ript)?)|on\w+\s*=\*\w+\-"?'] = array(
+      'type' => array('xss'),
+      'description' => t('URL injection, VBS injection or common URI scheme.'),
+      'impact' => 3,
+    );

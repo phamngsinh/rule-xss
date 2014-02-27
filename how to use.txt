@@ -1,0 +1,10 @@
+how to use
+
+       foreach ($rules as $expression => $rule_info) {
+            if (preg_match('/' . $expression . '/ms', strtolower($value))) {
+              // If the rule matched, the detection information will be added to
+              // the findings array and the overall impact increased properly.
+              $findings[] = $rule_info;
+              $impact += (int) $rule_info['impact'];
+            }
+          }
